@@ -27,6 +27,8 @@ namespace WPFLR4
 
         void timer1_Tick(object sender, EventArgs e)
         {
+            Title = WindowState == WindowState.Minimized ?
+                label1.Text : "Clock";
             if ((bool)checkBox1.IsChecked)
             {
                 t++;
