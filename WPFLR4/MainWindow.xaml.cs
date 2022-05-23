@@ -71,5 +71,25 @@ namespace WPFLR4
             t = 0;
             label1.Text = "0:0";
         }
+
+        private void label1_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 1)
+            {
+                if (!button1.IsEnabled)
+                    return;
+                if (e.ChangedButton == MouseButton.Left)
+                    button1_Click(null, null);
+                else
+                    if (e.ChangedButton == MouseButton.Right)
+                        button2_Click(null, null);
+            }
+            else
+            if(e.ClickCount==2)
+            {
+                checkBox1.IsChecked = !(bool)checkBox1.IsChecked;
+                checkBox1_Click(null, null);
+            }
+        }
     }
 }
