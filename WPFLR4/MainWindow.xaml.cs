@@ -21,18 +21,55 @@ namespace WPFLR4
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        DispatcherTimer timer1 = new DispatcherTimer();
+        int t;
+
+        void timer1_Tick(object sender, EventArgs e)
+        {
+            if ((bool)checkBox1.IsChecked)
+            {
+                t++;
+                label1.Text = String.Format("{0}:{1}", t / 10, t % 10);
+            }
+            else
+                label1.Text = DateTime.Now.ToLongTimeString();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            DispatcherTimer timer1 = new DispatcherTimer();
             timer1.Interval = TimeSpan.FromMilliseconds(1000);
             timer1.Tick += timer1_Tick;
             timer1.Start();
 
-            void timer1_Tick(object sender, EventArgs e)
+            
+        }
+
+        private void checkBox1_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)checkBox1.IsChecked)
             {
-                label1.Text =DateTime.Now.ToLongTimeString();
+                t = -1;
+                timer1.Interval = TimeSpan.FromMilliseconds(100);
             }
+            else
+                timer1.Interval=TimeSpan.FromMilliseconds(1000);
+            timer1_Tick(null, null);
+            button1.IsEnabled = button1.IsEnabled = (bool)checkBox1.IsChecked;
+            timer1.IsEnabled = true;
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            timer1.IsEnabled = !timer1.IsEnabled;
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            timer1.IsEnabled = false;
+            t = 0;
+            label1.Text = "0:0";
         }
     }
 }
